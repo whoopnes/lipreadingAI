@@ -1,4 +1,4 @@
-👄 LipReading AI: Visual Speech Recognition System
+# 👄 LipReading AI: Visual Speech Recognition System
 
 LipReading AI adalah proyek Deep Learning yang bertujuan untuk mengenali ucapan manusia hanya dari gerakan bibir tanpa menggunakan input suara. Sistem ini menggunakan kombinasi 3D Convolutional Neural Network (3D CNN) dan Bidirectional LSTM untuk mengekstraksi informasi visual dan temporal dari video.
 
