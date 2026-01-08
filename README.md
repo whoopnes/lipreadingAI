@@ -40,7 +40,7 @@ pip install -r requirements.txt
 ## 3️⃣ Run the Web App
 streamlit run app.py
 
-# ⚠️ Sistem saat ini belum mendukung real-time dan hanya menerima unggahan video yang mengikuti format dataset.
+## ⚠️ Sistem saat ini belum mendukung real-time dan hanya menerima unggahan video yang mengikuti format dataset.
 
 # 🧩 Limitations & Future Work
 - Belum mendukung real-time inference
