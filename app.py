@@ -247,8 +247,24 @@ if st.button("Process & Prediction", use_container_width=True):
     cols = st.columns(3)
     num_frames = min(6, len(frames))
     indices = np.linspace(0, len(frames)-1, num_frames, dtype=int)
+    
     for i, idx in enumerate(indices):
         with cols[i % 3]:
-            frame = frames[idx].astype(np.uint8)
-            img = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-            st.image(img, use_container_width=True)
+            try:
+                frame = frames[idx]
+                if frame.dtype != np.uint8:
+                    # Jika float, scale ke 0-255
+                    if frame.max() <= 1.0:
+                        frame = (frame * 255).astype(np.uint8)
+                    else:
+                        frame = frame.astype(np.uint8)
+                
+                frame = np.ascontiguousarray(frame)
+                img = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+                if len(img.shape) != 3 or img.shape[2] != 3:
+                    st.error(f"Invalid image shape: {img.shape}")
+                    continue
+                    
+                st.image(img, channels="RGB", use_container_width=True)
+            except Exception as e:
+                st.error(f"Error displaying frame {idx}: {str(e)}")
