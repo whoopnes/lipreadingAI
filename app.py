@@ -5,11 +5,15 @@ import cv2
 import numpy as np
 import tensorflow as tf
 import base64
+import gdown
+import zipfile
 
 LIP_WIDTH = 112
 LIP_HEIGHT = 80
 MOUTH_LANDMARKS = [61, 146, 91, 181, 84, 17, 314, 405, 321, 375, 291, 308, 324, 318, 402, 317, 14, 87, 178, 88, 78, 191, 80, 81, 82, 13, 312, 311, 310, 415, 308]
 DATASET = 'Dataset_Indo'
+DATASET_ZIP = "Dataset_Indo.zip"
+DATASET_URL = "https://drive.google.com/drive/folders/1gVvOMczguUKT57p0oXIq9LYP_Ff82L6n?usp=sharing"
 LABEL_DICT = {0: 'air', 1: 'bakso', 2: 'doa', 3: 'kopi', 4: 'novel', 5: 'puding', 6: 'rumus', 7: 'surat'}
 img_path = 'background.webp'
 
@@ -41,6 +45,14 @@ def set_bg(img_path):
         unsafe_allow_html=True
     )
 set_bg(img_path)
+
+def ensure_dataset():
+    if not os.path.exists(DATASET):
+        st.info("Downloading Dataset Indo...")
+        gdown.download(DATASET_URL, DATASET_ZIP, quiet=False)
+        with zipfile.ZipFile(DATASET_ZIP, 'r') as zip_ref:
+            zip_ref.extractall('.')
+        os.remove(DATASET_ZIP)
 
 @st.cache_resource
 def load_model(model_type):
@@ -192,6 +204,7 @@ def predicting_word(model, frames):
 st.title("👄Lip Reading AI")
 st.subheader("Testing Lip Reading Model Using Video🎥")
 st.divider()
+ensure_dataset()
 
 videos_dict = avail_videos(DATASET)
 if not videos_dict:
