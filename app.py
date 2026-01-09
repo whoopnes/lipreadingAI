@@ -249,5 +249,6 @@ if st.button("Process & Prediction", use_container_width=True):
     indices = np.linspace(0, len(frames)-1, num_frames, dtype=int)
     for i, idx in enumerate(indices):
         with cols[i % 3]:
-            img = cv2.cvtColor(frames[idx], cv2.COLOR_BGR2RGB)
+            frame = frames[idx].astype(np.uint8)
+            img = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             st.image(img, use_container_width=True)
