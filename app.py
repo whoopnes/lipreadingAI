@@ -13,6 +13,10 @@ DATASET = 'Dataset_Indo'
 LABEL_DICT = {0: 'air', 1: 'bakso', 2: 'doa', 3: 'kopi', 4: 'novel', 5: 'puding', 6: 'rumus', 7: 'surat'}
 img_path = 'background.webp'
 
+st.write("MediaPipe version:", mp.__version__)
+st.write("Has solutions:", hasattr(mp, "solutions"))
+st.write("Solutions content:", dir(mp.solutions) if hasattr(mp, "solutions") else "NO SOLUTIONS")
+
 def set_bg(img_path):
     with open(img_path, "rb") as f:
         encoded = base64.b64encode(f.read()).decode()
